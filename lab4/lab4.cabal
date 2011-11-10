@@ -1,4 +1,4 @@
-name: lab1
+name: lab4
 version: 0.0.1
 cabal-version: -any
 build-type: Simple
@@ -21,7 +21,7 @@ data-dir: ""
 extra-source-files:
 extra-tmp-files:
  
-executable: lab1
+executable: lab4
 main-is: Main.hs
 buildable: True
 build-tools:
@@ -42,7 +42,8 @@ includes:
 install-includes:
 include-dirs:
 hs-source-dirs: src
-other-modules: Lab04 Lab03_part2 Lab03 Lab02
+other-modules: Hcat Capslocker GetCharTest ForMTest Hello3 Hello2
+               Hello1 HelloWorld
 ghc-prof-options:
 ghc-shared-options:
 ghc-options:
