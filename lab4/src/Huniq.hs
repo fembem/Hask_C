@@ -12,7 +12,7 @@
 --
 -----------------------------------------------------------------------------
 
-module Huniq (
+module Main (
   main
 ) where
 
@@ -26,8 +26,9 @@ main = do
     handle <- openFile fileName ReadMode
     contents <- hGetContents handle
     let fileLines = lines contents
-    let (filteredLines, last) = foldr (\x acc ->
-          let (list, last) = acc in if x == last then (list, x) else (x:list, x))
+    let (filteredLines, _) = foldr (\x acc ->
+          let (list, last) = acc in
+              if x == last then (list, x) else (x:list, x))
               ([] , "" ) fileLines
     {-let (filteredLines, _) = foldr helperFunc ([] , "" ) fileLines-}
     putStr $ unlines filteredLines

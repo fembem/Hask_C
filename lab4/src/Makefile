@@ -4,7 +4,7 @@
 
 GHC    = ghc --make
 HFLAGS = -W -O
-PROGS  = hello1 hello2 hello3 hcat hsort huniq
+PROGS  = Hello1 Hello2 Hello3 Hcat Hsort Huniq
 
 compile: $(PROGS)
 
