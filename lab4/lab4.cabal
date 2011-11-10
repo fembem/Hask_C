@@ -42,8 +42,8 @@ includes:
 install-includes:
 include-dirs:
 hs-source-dirs: src
-other-modules: Hcat Capslocker GetCharTest ForMTest Hello3 Hello2
-               Hello1 HelloWorld
+other-modules: Huniq Hsort Hcat Capslocker GetCharTest ForMTest
+               Hello3 Hello2 Hello1 HelloWorld
 ghc-prof-options:
 ghc-shared-options:
 ghc-options:
