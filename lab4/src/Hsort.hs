@@ -22,15 +22,20 @@ import Control.Monad
 
 main = do
   args <- getArgs
-  forM_ args (\fileName -> do
-    handle <- openFile fileName ReadMode
-    contents <- hGetContents handle
+  if (length args /= 0) then do
+    forM_ args (\fileName -> do
+      handle <- openFile fileName ReadMode
+      contents <- hGetContents handle
+      let fileLines = lines contents
+      putStr $ unlines $ quicksort fileLines
+      hClose handle
+      return ()
+      )
+    return ()
+  else do
+    contents <- getContents
     let fileLines = lines contents
     putStr $ unlines $ quicksort fileLines
-    hClose handle
-    return ()
-    )
-  return ()
 
 {- code from http://learnyouahaskell.com/recursion -}
 quicksort :: (Ord a) => [a] -> [a]

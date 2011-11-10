@@ -22,13 +22,17 @@ import Control.Monad
 
 main = do
   args <- getArgs
-  forM_ args (\fileName -> do
-    handle <- openFile fileName ReadMode
-    contents <- hGetContents handle
-    let fileLines = lines contents
-    putStr $ unlines fileLines
-    hClose handle
+  if (length args /= 0) then do
+    forM_ args (\fileName -> do
+      handle <- openFile fileName ReadMode
+      contents <- hGetContents handle
+      let fileLines = lines contents
+      putStr $ unlines fileLines
+      hClose handle
+      return ()
+      )
     return ()
-    )
-  return ()
+  else do
+    contents <- getContents
+    putStr contents
 
