@@ -8,6 +8,7 @@
 
 import Control.Monad
 import Array
+import Data.List
 
 
 ----------------------------------------------------------------------
@@ -105,14 +106,15 @@ prBdNum _ = "Error"
 -- 11 lines.
 print_board :: Board -> IO ()
 print_board brd = do
-  putStrLn ("        " ++  (prBdElem brd 0) ++ "        ")
-  putStrLn ("      " ++  (prBdElem brd 1) ++ "  " ++ (prBdElem brd 2) ++ "      ")
-  putStrLn ("    " ++  (prBdElem brd 3) ++ "  " ++ (prBdElem brd 4) ++ "  " ++ (prBdElem brd 5) ++
+  let pr = prBdElem brd
+  putStrLn ("        " ++  (pr 0) ++ "        ")
+  putStrLn ("      " ++  (pr 1) ++ "  " ++ (pr 2) ++ "      ")
+  putStrLn ("    " ++  (pr 3) ++ "  " ++ (pr 4) ++ "  " ++ (pr 5) ++
        "  " ++ "    ")
-  putStrLn ("  " ++  (prBdElem brd 6) ++ "  " ++ (prBdElem brd 7) ++ "  " ++ (prBdElem brd 8) ++
+  putStrLn ("  " ++  (pr 6) ++ "  " ++ (pr 7) ++ "  " ++ (pr 8) ++
        "  " ++ (prBdElem brd 9) ++ "  " ++ "  ")
-  putStrLn  ((prBdElem brd 10) ++ "  " ++ (prBdElem brd 11) ++ "  " ++ (prBdElem brd 12) ++ "  " ++
-    (prBdElem brd 13) ++ "  " ++ (prBdElem brd 14))
+  putStrLn  ((pr 10) ++ "  " ++ (pr 11) ++ "  " ++ (pr 12) ++ "  " ++
+    (pr 13) ++ "  " ++ (pr 14))
 
 
 
@@ -123,19 +125,23 @@ print_move (from, over, to) =
               ++ " over position " ++ show over
               ++ " to position " ++ show to ++ "."
 
+-- Pretty-print a solution.
+-- 10 lines.
+print_solution :: Solution -> IO ()
+print_solution (brd, mv_brd_s) = do
+  print_board brd
+  forM_ mv_brd_s (\(mv, brd) -> do
+        print_move mv
+        print_board brd)
+
 {-
+
 -- Print the tally of ending pegs.
 -- 6 lines.
 print_ending_pegs :: Array Int Int -> IO ()
 {- TODO -}
 
-
--- Pretty-print a solution.
--- 10 lines.
-print_solution :: Solution -> IO ()
-{- TODO -}
-
-
+-}
 ----------------------------------------------------------------------
 -- Solving the game.
 ----------------------------------------------------------------------
@@ -144,15 +150,22 @@ print_solution :: Solution -> IO ()
 -- otherwise False.
 -- 2 lines.
 valid_move :: Board -> Move -> Bool
-{- TODO -}
-
+valid_move brd mv =
+  if elem mv moves then
+    let (from, over, to) = mv in
+      if (elem from brd) && (elem to brd) && not (elem over brd)
+        then True
+        else False
+  else False
 
 -- Make a specific move on a specific board.
 -- Assumes that the move is valid on the board.
 -- 3 lines.
 make_move :: Board -> Move -> Board
-{- TODO -}
+make_move brd (from, over, to) =
+  delete from . delete over . insert to $ brd
 
+{-
 
 -- Make all possible moves on a given board.
 -- Return (move, board) pairs for the boards resulting from the moves.
