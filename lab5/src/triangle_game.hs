@@ -77,27 +77,58 @@ moves = [( 0,  1,  3),
 -- Input/output.
 ----------------------------------------------------------------------
 
+prBdElem:: Board -> Int -> String
+prBdElem board i =
+  if (elem i board) then (prBdNum i)
+  else " ."
+
+prBdNum:: Int -> String
+prBdNum 0 = " 0"
+prBdNum 1 = " 1"
+prBdNum 2 = " 2"
+prBdNum 3 = " 3"
+prBdNum 4 = " 4"
+prBdNum 5 = " 5"
+prBdNum 6 = " 6"
+prBdNum 7 = " 7"
+prBdNum 8 = " 8"
+prBdNum 9 = " 9"
+prBdNum 10 = "10"
+prBdNum 11 = "11"
+prBdNum 12 = "12"
+prBdNum 13 = "13"
+prBdNum 14 = "14"
+prBdNum _ = "Error"
+
 -- Pretty-print the board in a triangle shape, with '.' for unoccupied pegs
 -- and the peg number for occupied pegs.
 -- 11 lines.
 print_board :: Board -> IO ()
-print_board brd = 
-{- TODO -}
+print_board brd = do
+  putStrLn ("        " ++  (prBdElem brd 0) ++ "        ")
+  putStrLn ("      " ++  (prBdElem brd 1) ++ "  " ++ (prBdElem brd 2) ++ "      ")
+  putStrLn ("    " ++  (prBdElem brd 3) ++ "  " ++ (prBdElem brd 4) ++ "  " ++ (prBdElem brd 5) ++
+       "  " ++ "    ")
+  putStrLn ("  " ++  (prBdElem brd 6) ++ "  " ++ (prBdElem brd 7) ++ "  " ++ (prBdElem brd 8) ++
+       "  " ++ (prBdElem brd 9) ++ "  " ++ "  ")
+  putStrLn  ((prBdElem brd 10) ++ "  " ++ (prBdElem brd 11) ++ "  " ++ (prBdElem brd 12) ++ "  " ++
+    (prBdElem brd 13) ++ "  " ++ (prBdElem brd 14))
+
 
 
 -- Pretty-print a move.
 print_move :: Move -> IO ()
 print_move (from, over, to) =
-   putStrLn $ "Jump a peg from position " ++ show from 
+   putStrLn $ "Jump a peg from position " ++ show from
               ++ " over position " ++ show over
               ++ " to position " ++ show to ++ "."
 
-
+{-
 -- Print the tally of ending pegs.
 -- 6 lines.
 print_ending_pegs :: Array Int Int -> IO ()
 {- TODO -}
-        
+
 
 -- Pretty-print a solution.
 -- 10 lines.
@@ -142,7 +173,7 @@ update :: Board -> [[(Move, Board)]]
 {- TODO -}
 
 
--- Compute all possible game solutions starting from a given board.  
+-- Compute all possible game solutions starting from a given board.
 -- 1 line.
 all_solutions :: Board -> [Solution]
 {- TODO -}
@@ -163,7 +194,7 @@ count_ending_pegs :: [Solution] -> Array Int Int
 -- Print out the number of solutions, the tally of ending pegs
 -- and the first solution in move-by-move detail.
 main :: IO ()
-main = 
+main =
    let sols        = all_solutions starting_board
        nsols       = length sols
        sol1        = head $ sols
@@ -178,6 +209,6 @@ main =
       putStrLn "Detailed solution:"
       print_solution sol1
 
-
+-}
 
 
