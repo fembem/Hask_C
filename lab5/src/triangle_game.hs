@@ -165,18 +165,22 @@ make_move :: Board -> Move -> Board
 make_move brd (from, over, to) =
   delete from . delete over . insert to $ brd
 
-{-
-
 -- Make all possible moves on a given board.
 -- Return (move, board) pairs for the boards resulting from the moves.
 -- 4 lines.  Uses monadic style (list monad).
 make_moves :: Board -> [(Move, Board)]
-{- TODO -}
+make_moves brd = do
+    move <- moves
+    guard (valid_move brd move)
+    return (make_move brd move)
+
 
 
 -- Return True if a board is a solution.
 is_solution :: Board -> Bool
-{- TODO -}
+is_solution brd = length brd == 1
+
+{-
 
 
 -- Starting from a board, generate a list of lists of all the move/board
