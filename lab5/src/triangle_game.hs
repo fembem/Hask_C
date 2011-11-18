@@ -180,21 +180,21 @@ make_moves brd = do
 is_solution :: Board -> Bool
 is_solution brd = length brd == 1
 
-{-
-
 
 -- Starting from a board, generate a list of lists of all the move/board
 -- pairs that lead to a solution.  The original board is not part of the
 -- lists.  8 lines.  Uses monadic style (list monad).
 update :: Board -> [[(Move, Board)]]
-{- TODO -}
-
+update brd = do
+  mv_brd_s <- make_moves brd
+  guard
 
 -- Compute all possible game solutions starting from a given board.
 -- 1 line.
 all_solutions :: Board -> [Solution]
-{- TODO -}
+all_solutions brd = [ (brd, x) | x <- update brd ]
 
+{-
 
 -- Compute the number of solutions which end in each numbered peg.
 -- Return an array of the count for each peg.
