@@ -12,9 +12,7 @@ homepage:
 package-url:
 bug-reports:
 synopsis:
-description:  
-             .
-             .
+description: .
              .
              .
 category:
@@ -46,7 +44,7 @@ includes:
 install-includes:
 include-dirs:
 hs-source-dirs: src
-other-modules:
+other-modules: Barrel
 ghc-prof-options:
 ghc-shared-options:
 ghc-options:
