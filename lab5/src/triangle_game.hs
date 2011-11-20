@@ -107,14 +107,20 @@ prBdNum _ = "Error"
 print_board :: Board -> IO ()
 print_board brd = do
   let pr = prBdElem brd
+  let blank_line  = putStr "\n"
   putStrLn ("        " ++  (pr 0) ++ "        ")
+  blank_line
   putStrLn ("      " ++  (pr 1) ++ "  " ++ (pr 2) ++ "      ")
+  blank_line
   putStrLn ("    " ++  (pr 3) ++ "  " ++ (pr 4) ++ "  " ++ (pr 5) ++
        "  " ++ "    ")
+  blank_line
   putStrLn ("  " ++  (pr 6) ++ "  " ++ (pr 7) ++ "  " ++ (pr 8) ++
        "  " ++ (prBdElem brd 9) ++ "  " ++ "  ")
+  blank_line
   putStrLn  ((pr 10) ++ "  " ++ (pr 11) ++ "  " ++ (pr 12) ++ "  " ++
     (pr 13) ++ "  " ++ (pr 14))
+  blank_line
 
 
 
@@ -153,7 +159,7 @@ valid_move :: Board -> Move -> Bool
 valid_move brd mv =
   if elem mv moves then
     let (from, over, to) = mv in
-      if (elem from brd) && (elem to brd) && not (elem over brd)
+      if (elem from brd) && (elem over brd) && not (elem to brd)
         then True
         else False
   else False
