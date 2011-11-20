@@ -172,7 +172,7 @@ make_moves :: Board -> [(Move, Board)]
 make_moves brd = do
     move <- moves
     guard (valid_move brd move)
-    return (make_move brd move)
+    return (move, make_move brd move)
 
 
 
@@ -186,8 +186,21 @@ is_solution brd = length brd == 1
 -- lists.  8 lines.  Uses monadic style (list monad).
 update :: Board -> [[(Move, Board)]]
 update brd = do
-  mv_brd_s <- make_moves brd
-  guard
+  mv_brd1 <- make_moves brd
+  mv_brd2 <- make_moves $ snd mv_brd1
+  mv_brd3 <- make_moves $ snd mv_brd2
+  mv_brd4 <- make_moves $ snd mv_brd3
+  mv_brd5 <- make_moves $ snd mv_brd4
+  mv_brd6 <- make_moves $ snd mv_brd5
+  mv_brd7 <- make_moves $ snd mv_brd6
+  mv_brd8 <- make_moves $ snd mv_brd7
+  mv_brd9 <- make_moves $ snd mv_brd8
+  mv_brd10 <- make_moves $ snd mv_brd9
+  mv_brd11 <- make_moves $ snd mv_brd10
+  mv_brd12 <- make_moves $ snd mv_brd11
+  mv_brd13 <- make_moves $ snd mv_brd12
+  return [mv_brd1, mv_brd2, mv_brd3, mv_brd4, mv_brd5, mv_brd6,
+    mv_brd7, mv_brd8, mv_brd9, mv_brd10, mv_brd11, mv_brd12, mv_brd13]
 
 -- Compute all possible game solutions starting from a given board.
 -- 1 line.
@@ -202,6 +215,7 @@ all_solutions brd = [ (brd, x) | x <- update brd ]
 count_ending_pegs :: [Solution] -> Array Int Int
 {- TODO -}
 
+-}
 
 ----------------------------------------------------------------------
 -- Entry point.
@@ -215,17 +229,16 @@ main =
    let sols        = all_solutions starting_board
        nsols       = length sols
        sol1        = head $ sols
-       ending_pegs = count_ending_pegs sols
+       {-ending_pegs = count_ending_pegs sols-}
        blank_line  = putStr "\n"
    in
    do putStrLn $ "Total number of solutions: " ++ show nsols
       blank_line
       putStrLn $ "Ending peg counts:"
-      print_ending_pegs ending_pegs
+      {-print_ending_pegs ending_pegs-}
       blank_line
       putStrLn "Detailed solution:"
       print_solution sol1
 
--}
 
 
