@@ -10,6 +10,8 @@ import Control.Monad
 import Array
 import Data.List
 
+import qualified Data.Foldable as F
+
 
 ----------------------------------------------------------------------
 -- Types.
@@ -140,14 +142,16 @@ print_solution (brd, mv_brd_s) = do
         print_move mv
         print_board brd)
 
-{-
+
 
 -- Print the tally of ending pegs.
 -- 6 lines.
 print_ending_pegs :: Array Int Int -> IO ()
-{- TODO -}
+print_ending_pegs pegCountArray = do
+  F.forM_ pegCountArray (\count -> do
+        putStrLn ("count: " ++ (show count) )
+        )
 
--}
 ----------------------------------------------------------------------
 -- Solving the game.
 ----------------------------------------------------------------------
@@ -221,9 +225,11 @@ all_solutions brd = [ (brd, x) | x <- update brd ]
 count_ending_pegs :: [Solution] -> Array Int Int
 count_ending_pegs solutions =
   {-let dummy = (\x -> x)-}
-  {-let iPegSolutions = (\peg -> filter (\solution ->  (fst(snd (last solution)) ) == peg) solutions )-}
+  {-let iPegSolutions = (\peg ->
+      filter (\solution ->
+          (fst(snd (last solution)) ) == peg) solutions )-}
   {-let iCount = (\peg -> iPegSolutions peg solutions)-}
-  array (0,14) [(i, iCount i solutions) | i <- [0..14]]
+  array (0, 14) [(i, iCount i solutions) | i <- [0..14]]
 
 iCount :: Int -> [Solution] -> Int
 iCount peg solutions = length (iPegSolutions peg solutions)
@@ -252,13 +258,13 @@ main =
    let sols        = all_solutions starting_board
        nsols       = length sols
        sol1        = head $ sols
-       {-ending_pegs = count_ending_pegs sols-}
+       ending_pegs = count_ending_pegs sols
        blank_line  = putStr "\n"
    in
    do putStrLn $ "Total number of solutions: " ++ show nsols
       blank_line
       putStrLn $ "Ending peg counts:"
-      {-print_ending_pegs ending_pegs-}
+      print_ending_pegs ending_pegs
       blank_line
       putStrLn "Detailed solution:"
       print_solution sol1
