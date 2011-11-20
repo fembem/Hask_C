@@ -213,15 +213,32 @@ update brd = do
 all_solutions :: Board -> [Solution]
 all_solutions brd = [ (brd, x) | x <- update brd ]
 
-{-
+
 
 -- Compute the number of solutions which end in each numbered peg.
 -- Return an array of the count for each peg.
 -- 8 lines.
 count_ending_pegs :: [Solution] -> Array Int Int
-{- TODO -}
+count_ending_pegs solutions =
+  {-let dummy = (\x -> x)-}
+  {-let iPegSolutions = (\peg -> filter (\solution ->  (fst(snd (last solution)) ) == peg) solutions )-}
+  {-let iCount = (\peg -> iPegSolutions peg solutions)-}
+  array (0,14) [(i, iCount i solutions) | i <- [0..14]]
 
--}
+iCount :: Int -> [Solution] -> Int
+iCount peg solutions = length (iPegSolutions peg solutions)
+
+iPegSolutions :: Int -> [Solution] -> [Solution]
+iPegSolutions peg solutions =
+  filter (iFilter peg) solutions
+
+iFilter :: Int -> Solution -> Bool
+iFilter peg solution =
+  let mv_brd_s = snd solution
+      final_mv_board = last mv_brd_s
+      final_board = snd final_mv_board
+  in ((head final_board) == peg )
+
 
 ----------------------------------------------------------------------
 -- Entry point.
